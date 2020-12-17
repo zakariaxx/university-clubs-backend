@@ -61,4 +61,4 @@ Route::get('club/randomlist', [ClubController::class, 'getRandomUsers']);
 
 
 // Token validation
-Route::get('user/verify/{token}', 'App\Http\Controllers\AuthController@verifyUser')->name('verify');
+Route::get('user/verify/{token}',[AuthController::class, 'verifyUser'])->name('verify');
