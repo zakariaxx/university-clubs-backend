@@ -23,13 +23,10 @@ class CreateUsersTable extends Migration
             $table->string('phone_number');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('verified')->default(User::UNVERIFIED_USER);
+            $table->boolean('verified')->default(User::UNVERIFIED_USER);
             $table->string('verification_token')->nullable();
-            $table->string('sexe');
-            $table->string('filiere')->nullable();
-            $table->string('niveau')->nullable();
-            $table->string('activate')->default(User::DESACTIVATE_USER);
-            $table->string('admin')->default(User::REGULAR_USER);
+            $table->string('civility');
+            $table->boolean('activate')->default(User::DESACTIVATE_USER);
             $table->string('photo')->nullable();
             $table->rememberToken();
             $table->timestamps();

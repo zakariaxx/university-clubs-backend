@@ -38,13 +38,11 @@ class User extends Authenticatable
         'password',
         'photo',
         'phone_number',
-        'admin',
         'verification_token',
         'verified',
-        'sexe',
-        'filiere',
-        'niveau',
         'activate',
+        'civility',
+
     ];
 
     /**

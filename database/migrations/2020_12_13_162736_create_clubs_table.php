@@ -19,11 +19,15 @@ class CreateClubsTable extends Migration
             $table->string('description',1000);
             $table->string('email')->nullable();
             $table->string('club_type');
+            $table->string('logo');
+            $table->string('mission_objectives');
             $table->date('creation_date');
-            $table->string('logo')->nullable();
-            $table->string('pedagogique_referent');
-            $table->string('fiche_signalitique')->nullable();
+            $table->string('office_member_list_file');
+            $table->string('club_logo')->nullable();
+            $table->string('signalitic_file')->nullable();
             $table->float('caisse')->default(0.0);
+            $table->string('constitution_file')->default(0);
+            $table->boolean('activate')->default(0);
             $table->timestamps();
         });
     }

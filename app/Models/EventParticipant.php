@@ -13,8 +13,6 @@ class EventParticipant extends Model
         '',
         'invitation',
         'participate',
-        'last_name',
-        'email',
-        'phone_number'
+
     ];
 }

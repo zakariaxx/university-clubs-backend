@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Budget\BudgetController;
 use App\Http\Controllers\Club\ClubController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\EventParticipantController;
@@ -24,12 +25,49 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'prefix' => 'auth'
 ], function () {
+
+    //Authentication routes
     Route::post('login', [AuthController::class, 'login']);
     Route::post('signup', [AuthController::class, 'signup']);
 
-    Route::middleware('auth:api')->get('/user', function (Request $request) {
-        return $request->user();
-    });
+
+
+
+});
+
+
+    Route::group([
+        'middleware' => 'auth:api'
+    ], function() {
+
+        Route::apiResource('users', UserController::class)->only([
+            'index', 'show','update','destroy'
+        ]);
+
+        Route::apiResource('events', EventController::class)->only([
+            'update','destroy','store'
+        ]);
+
+        Route::apiResource('clubs', ClubController::class)->only([
+            'update','destroy','store'
+        ]);
+
+
+        Route::apiResource('eventparticipants', EventParticipantController::class)->only([
+            'index', 'show','update','destroy','store'
+        ]);
+
+        Route::apiResource('inscriptions', InscriptionController::class)->only([
+            'index','destroy','store'
+        ]);
+
+        Route::apiResource('meetings', MeetingController::class)->only([
+            'index','update','destroy','store'
+        ]);
+
+        Route::apiResource('budgets', MeetingController::class)->only([
+            'index','update','destroy','store'
+        ]);
 });
 
 
@@ -37,28 +75,38 @@ Route::group([
 to see the list of routes
 php artisan route:list
 */
-Route::apiResource('users', UserController::class)->only([
-    'index', 'show'
-]);
-Route::apiResource('events', EventController::class)->only([
-    'index', 'show'
-]);
-Route::apiResource('clubs', ClubController::class)->only([
-    'index', 'show'
-]);
-Route::apiResource('eventparticipants', EventParticipantController::class)->only([
-    'index', 'show'
-]);
-Route::apiResource('inscriptions', InscriptionController::class)->only([
-    'index', 'show'
-]);;
-Route::apiResource('meetings', MeetingController::class)->only([
-    'index', 'show'
-]);
 
-// get random list of users
-Route::get('club/randomlist', [ClubController::class, 'getRandomUsers']);
+    //Clubs group
+    Route::group([
+        'prefix' => 'clubs'
+    ], function () {
+
+        Route::get('getAllClubs', [ClubController::class, 'index']);
+        Route::get('randomlist', [ClubController::class, 'getRandomUsers']);
+
+    });
 
 
-// Token validation
-Route::get('user/verify/{token}',[AuthController::class, 'verifyUser'])->name('verify');
+    //event group
+    Route::group([
+        'prefix' => 'events'
+    ], function () {
+
+        Route::get('getAllEvents', [EventController::class, 'index']);
+        Route::put('uploadEventImage/{id}', [EventController::class, 'uploadEventImage']);
+
+    });
+
+
+
+
+    //users group
+    Route::group([
+        'prefix' => 'users'
+    ], function () {
+
+        Route::get('verify/{token}',[AuthController::class, 'verifyUser'])->name('verify');
+
+    });
+
+

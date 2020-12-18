@@ -3,17 +3,13 @@
 namespace App\Http\Controllers\Club;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\FileController;
+use App\Http\Controllers\file\FileController;
 use App\Models\Club;
 use Illuminate\Http\Request;
 
 class ClubController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $clubs=Club::all();
@@ -21,12 +17,7 @@ class ClubController extends Controller
     }
 
 
-    /**
-     * Display a listing of the resource.
-     * 3 resource randomly
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function getRandomUsers()
     {
         $clubs=Club::all()->random(3);
@@ -35,38 +26,36 @@ class ClubController extends Controller
 
 
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $request->validate([
             'club_name' => 'required|string',
             'description' => 'required|string',
-            'type_club' => 'required|string',
+            'club_type' => 'required|string',
             'email'=>'required|email',
             'creation_date' => 'required|date',
-            'pedagogique_referent' => 'required|string',
-            'fiche_signalitique' => 'required',
-
+            'mission_objectives'=> 'required|string',
+            'office_member_list_file'=> 'required|string',
+            'signalitic_file' => 'required|string',
+            'constitution_file'=> 'required|string',
+            'caisse'=>'required'
 
         ]);
 
-
-
-        $club = new Club(
+$club = new Club(
 
           [
               'club_name' => $request->club_name,
               'description'=> $request->description,
-              'type_club'=> $request->type_club,
+              'club_type'=> $request->club_type,
               'email'=> $request->email,
               'creation_date'=> $request->creation_date,
-               'pedagogique_referent' =>$request-> pedagogique_referent,
-               'fiche_signalitique' => $request->fiche_signalitique,
+              'mission_objectives' => $request->mission_objectives,
+              'office_member_list_file'=> $request->office_member_list_file,
+              'signalitic_file' => $request->signalitic_file,
+              'constitution_file'=> $request->constitution_file,
+              'caisse '=> $request->caisse,
           ]);
 
 
@@ -76,24 +65,25 @@ class ClubController extends Controller
         return response()->json($club,200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Club  $club
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Club $club)
-    {
-        //
+    public function getImage($filename){
+        $path = storage_path('public/'. $filename);
+
+        if (!File::exists($path)) {
+            echo'getimage';
+            abort(404);
+        }
+
+
+        $file = File::get($path);
+        $type = File::mimeType($path);
+
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+
+        return $response;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Club  $club
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         $club=Club::find($id);
@@ -101,12 +91,7 @@ class ClubController extends Controller
         return response()->json($club,200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Club  $club
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $club=Club::find($id);
@@ -114,5 +99,15 @@ class ClubController extends Controller
         return response()->json([
             'message' => 'deleted!'
         ], 201);
+    }
+
+    public function UpdateClubImage(Request $request, int $id)
+    {
+        $filename=(new FileController)->uploadImage($request);
+        $club = Club::find($id);
+        $club-> logo = $filename;
+        echo "hi --------";
+        $club->save();
+        return response()->json([$club,'message' => 'Image Uploaded Successfully']);
     }
 }

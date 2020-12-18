@@ -33,15 +33,19 @@ class AuthController extends Controller
             'password' => 'required|string',
              'phone_number'=>'required|string',
              'user_name'=>'required|string',
-             'sexe'=>'required|string',
-             'admin'=>'string',
+             'civility'=>'required|string',
+             'first_name'=>'required|string',
+             'last_name'=>'string|required',
+
         ]);
         $user = new User([
             'email' => $request->email,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'password' => bcrypt($request->password),
             'phone_number'=>$request->phone_number,
             'user_name'=>$request->user_name,
-            'sexe'=>$request->sexe,
+            'civility'=>$request->civility,
             'admin'=>$request->admin,
             'verification_token'=> User::generateVericationCode()
         ]);

@@ -13,15 +13,19 @@ class Club extends Model
     use  Notifiable,HasFactory;
 
     protected $fillable = [
-    '',
+        '',
         'club_name',
         'description',
         'email',
         'club_type',
         'creation_date',
-        'logo',
-        'pedagogique_referent',
-        'fiche_signalitique',
+        'club_logo',
+        'mission_objectives',
+        'office_member_list_file',
+        'signalitic_file',
+        'constitution_file',
+        'activate',
         'caisse',
+        'logo'
     ];
 }

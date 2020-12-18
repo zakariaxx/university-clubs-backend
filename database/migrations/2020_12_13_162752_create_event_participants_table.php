@@ -24,6 +24,8 @@ class CreateEventParticipantsTable extends Migration
             $table->foreign('participant_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
+
+
     }
 
     /**

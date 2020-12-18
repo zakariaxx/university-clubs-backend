@@ -30,6 +30,7 @@ class ClubFactory extends Factory
             'creation_date' => now(),
             'pedagogique_referent' => $this->faker->name,
             'fiche_signalitique' => $password?:$password = bcrypt("pass"),
+
         ];
     }
 }

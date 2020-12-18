@@ -8,23 +8,14 @@ use Illuminate\Http\Request;
 
 class MeetingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $meeting=Meeting::all();
         return response()->json($meeting,201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
 
@@ -47,24 +38,13 @@ class MeetingController extends Controller
         return response()->json($meeting,200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Meeting  $meeting
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Meeting $meeting)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Meeting  $meeting
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request,$id)
     {
         $meeting=Meeting::find($id);
@@ -72,12 +52,7 @@ class MeetingController extends Controller
         return response()->json($meeting,200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Meeting  $meeting
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy( $id)
     {
         $meeting=Meeting::find($id);

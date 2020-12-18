@@ -16,10 +16,9 @@ class Inscription extends Model
         '',
         'id_user',
         'id_club',
-        'role_name',
-        'office_member',
+        'post',
         'inscription_date',
-        'active',
+        'club_office_member',
     ];
 
     public function isOfficeMember(){

@@ -8,58 +8,42 @@ use Illuminate\Http\Request;
 
 class BudgetController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $budget = new Budget(
+            [
+                'montant'=>$request->montant,
+                'rest'=>$request->rest,
+                'facture'=>$request->facture,
+                'id_club'=>$request->id_club,
+
+            ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Budget  $budget
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Budget $budget)
+
+
+    public function index()
     {
-        //
+        $budget=Budget::all();
+        return response()->json($budget,201);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Budget  $budget
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Budget $budget)
+
+
+    public function update(Request $request, int $id)
     {
-        //
+
+        $budget=Budget::find($id);
+        $budget->update($request->all());
+        return response()->json($budget,200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Budget  $budget
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Budget $budget)
+
+    public function destroy( int $id)
     {
-        //
+        $budget=Budget::find($id);
+        $budget -> delete();
+
+        return response()->json(['message' => 'deleted!'], 201);
     }
 }

@@ -19,15 +19,15 @@ class CreateInscriptionsTable extends Migration
             $table->integer('id_user')->unsigned();
             $table->integer('id_club')->unsigned();
             $table -> date('inscription_date');
-            $table -> boolean('active')->default(1);
-            $table -> string('role_name')->nullable();
-            $table -> string('office_member')->default(Inscription::NORMAL_MEMBER);
+            $table -> string('post');
+            $table -> boolean('club_office_member')->default(0);
             $table->timestamps();
 
            $table->foreign('id_user')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+
             $table->foreign('id_club')
                 ->references('id')
                 ->on('clubs')
