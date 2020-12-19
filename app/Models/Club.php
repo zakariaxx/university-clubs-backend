@@ -26,6 +26,5 @@ class Club extends Model
         'constitution_file',
         'activate',
         'caisse',
-        'logo'
     ];
 }

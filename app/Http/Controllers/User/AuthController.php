@@ -31,11 +31,12 @@ class AuthController extends Controller
 
             'email' => ['required','string','email','unique:users'],
             'password' => 'required|string',
-             'phone_number'=>'required|string',
+             'phone_number'=>'string',
              'user_name'=>'required|string',
              'civility'=>'required|string',
-             'first_name'=>'required|string',
-             'last_name'=>'string|required',
+             'first_name'=>'string',
+             'last_name'=>'string',
+             'admin'=>'string',
 
         ]);
         $user = new User([
@@ -46,7 +47,6 @@ class AuthController extends Controller
             'phone_number'=>$request->phone_number,
             'user_name'=>$request->user_name,
             'civility'=>$request->civility,
-            'admin'=>$request->admin,
             'verification_token'=> User::generateVericationCode()
         ]);
 
