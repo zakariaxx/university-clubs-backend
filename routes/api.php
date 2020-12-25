@@ -6,6 +6,7 @@ use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\EventParticipantController;
 use App\Http\Controllers\Inscription\InscriptionController;
 use App\Http\Controllers\Meeting\MeetingController;
+use App\Http\Controllers\SimpleQRcodeController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Http\Request;
@@ -29,7 +30,13 @@ Route::group([
     //Authentication routes
     Route::post('login', [AuthController::class, 'login']);
     Route::post('signup', [AuthController::class, 'signup']);
+    Route::apiResource('users', UserController::class)->only([
+        'index', 'show','update','destroy'
+    ]);
 
+    Route::apiResource('events', EventController::class)->only([
+        'update','destroy','store'
+    ]);
 
 
 
@@ -93,10 +100,13 @@ php artisan route:list
     ], function () {
 
         Route::get('getAllEvents', [EventController::class, 'index']);
+        Route::get('getLast', [EventController::class, 'getTreeLast']);
         Route::put('uploadEventImage/{id}', [EventController::class, 'uploadEventImage']);
 
     });
 
+// QR code
+    Route::get("simple-qrcode", [SimpleQRcodeController::class,'generate']);
 
 
 

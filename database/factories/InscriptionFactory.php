@@ -26,8 +26,8 @@ class InscriptionFactory extends Factory
         return [
             'id_user' => User::all()->random()->id,
             'id_club' => Club::all()->random()->id,
-            'office_member' => $office_member = $this->faker-> randomElement([Inscription::NORMAL_MEMBER,Inscription::OFFICE_MEMBER ]),
-            'role_name' => $office_member == Inscription::NORMAL_MEMBER ? null : $this->faker->randomElement(['Président',' Vice Président', 'Sécrétaire', 'Trésorié']),
+            'club_office_member' => $office_member = $this->faker-> randomElement([Inscription::NORMAL_MEMBER,Inscription::OFFICE_MEMBER ]),
+            'post' => $office_member == Inscription::NORMAL_MEMBER ? null : $this->faker->randomElement(['Président',' Vice Président', 'Sécrétaire', 'Trésorié']),
             'inscription_date' => now(),
         ];
     }

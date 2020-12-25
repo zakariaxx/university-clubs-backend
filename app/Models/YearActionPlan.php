@@ -16,7 +16,7 @@ class YearActionPlan extends Model
     'academic_year',
     'estimated_budget',
     'event_date',
-     'event_time',
-        'id_club',
+    'event_time',
+    'id_club',
     ];
 }

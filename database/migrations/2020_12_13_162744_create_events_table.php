@@ -37,13 +37,14 @@ class CreateEventsTable extends Migration
             $table->integer('submit_by')->nullable();
             $table->boolean('validate')->default(0);
             $table->boolean('published')->default(0);
+            $table->integer('id_club')->unsigned();
 
             $table->timestamps();
 
-            /*$table->foreign('id_club')
+            $table->foreign('id_club')
                 ->references('id')
                 ->on('clubs')
-                ->onDelete('cascade');*/
+                ->onDelete('cascade');
         });
     }
 

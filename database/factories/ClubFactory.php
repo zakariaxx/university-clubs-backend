@@ -24,13 +24,11 @@ class ClubFactory extends Factory
         static $password;
         return [
             'club_name' => $this->faker->unique()->Word,
+            'mission_objectives' => $this->faker->paragraph(1),
             'description' => $this->faker->paragraph(1),
             'email' => $this->faker->email,
-            'club_type' => $this->faker->text,
             'creation_date' => now(),
-            'pedagogique_referent' => $this->faker->name,
-            'fiche_signalitique' => $password?:$password = bcrypt("pass"),
-
+            'club_type' => $this->faker->text,
         ];
     }
 }

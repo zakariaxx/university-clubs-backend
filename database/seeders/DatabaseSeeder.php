@@ -27,14 +27,14 @@ class DatabaseSeeder extends Seeder
        Inscription::truncate();
        Event::truncate();
 
-       $usersQuantity = 70;
+       $usersQuantity = 1;
        $clubQuantity = 20;
        $inscriptionQuantity = 50;
-       $eventQuantity = 100;
+       $eventQuantity = 10;
 
         User::factory()->count($usersQuantity)->create();
         Club::factory()->count($clubQuantity)->create();
-        Inscription::factory()->count($inscriptionQuantity)->create();
+        // Inscription::factory()->count($inscriptionQuantity)->create();
         Event::factory()->count($eventQuantity)->create();
     }
 }

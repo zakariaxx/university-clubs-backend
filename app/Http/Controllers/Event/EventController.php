@@ -72,6 +72,13 @@ class EventController extends Controller
         return response()->json($event,200);
     }
 
+
+    function getTreeLast(){
+        $events = Event::all()->sortByDesc('event_date')->random(3);
+        $lastevents =$events->slice(($events->count()-3),3);
+        return response()->json($events,200);
+    }
+
     function update(Request $request,int $id)
     {
         $event = Event::find($id);

@@ -32,10 +32,10 @@ class AuthController extends Controller
             'email' => ['required','string','email','unique:users'],
             'password' => 'required|string',
              'phone_number'=>'string',
-             'user_name'=>'required|string',
-             'civility'=>'required|string',
-             'first_name'=>'string',
-             'last_name'=>'string',
+             'user_name'=>'string',
+             'civility'=>'string',
+             'first_name'=>'required|string',
+             'last_name'=>'required|string',
              'admin'=>'string',
 
         ]);

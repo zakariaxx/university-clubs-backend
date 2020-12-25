@@ -22,13 +22,16 @@ class EventFactory extends Factory
      */
     public function definition()
     {
+        $club=Club::all()->random();
+
         return [
+            'theme' => $this->faker->word(),
             'name_event' => $this->faker->word,
             'description' => $this->faker->paragraph(1),
             'event_date' => now(),
-            'place' => $this->faker->text,
-            'event_type' =>$this->faker->randomElement(['conférance','jeux', 'competition', 'congrès']),
-            'id_club' => Club::all()->random()->id
+            'location' => $this->faker->text,
+            'id_club' => $club->id,
+            'club_name' => $club->club_name
         ];
     }
 }
