@@ -13,16 +13,22 @@ class CreateAdminTable extends Migration
      */
     public function up()
     {
-        Schema::create('admin', function (Blueprint $table) {
+
+        Schema::create('admins', function (Blueprint $table) {
             $table->boolean('administrative_officer');
             $table->boolean('professor');
             $table->boolean('admin');
             $table->string('email_uir');
             $table->string('faculty_or_department');
+            $table->integer('id_user')->unique()->unsigned();
 
 
+            $table->foreign('id_user')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
 
-            $table->timestamps();
+
         });
     }
 
@@ -33,6 +39,6 @@ class CreateAdminTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admin');
+        Schema::dropIfExists('admins');
     }
 }

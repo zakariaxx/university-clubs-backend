@@ -11,8 +11,9 @@ class EventParticipant extends Model
 
     protected $fillable = [
         '',
-        'invitation',
-        'participate',
-
+        'event_id',
+        'participant_id',
+       'invitation',
+       'participate',
     ];
 }

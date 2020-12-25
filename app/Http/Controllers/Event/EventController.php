@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
@@ -95,6 +97,43 @@ class EventController extends Controller
             'message' => 'deleted!'
         ], 201);
     }
+
+
+    public function countEvents()
+    {
+        $events= Event::all();
+        return $events->count();
+    }
+
+
+    public function mostRecentEvent()
+    {
+        return DB::table('events')
+            ->orderBy('event_date','desc')
+            ->select('id','event_date')
+            ->take(3)
+            ->get();
+    }
+
+    public function YearEvents()
+    {
+        return DB::table('events')
+           -> select(DB::raw("extract(year from event_date) as year"),DB::raw("(COUNT(id)) as nbEvents"))
+            ->Groupby(DB::raw('year') )
+            ->get();
+    }
+
+    public function monthEvents($year)
+    {
+        return DB::table('events')
+            -> select(DB::raw("extract(month from event_date) as month"),DB::raw("(COUNT(id)) as nbEvents"))
+            ->where(DB::raw("extract(year from event_date)"),'=',$year)
+            ->Groupby(DB::raw('month'))
+            ->get();
+    }
+
+
+
 
 
 }

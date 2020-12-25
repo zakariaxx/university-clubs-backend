@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Budget\BudgetController;
 use App\Http\Controllers\Club\ClubController;
+use App\Http\Controllers\ClubMember\ClubMemberController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\EventParticipantController;
+use App\Http\Controllers\File\FileController;
 use App\Http\Controllers\Inscription\InscriptionController;
 use App\Http\Controllers\Meeting\MeetingController;
 use App\Http\Controllers\SimpleQRcodeController;
@@ -30,93 +33,112 @@ Route::group([
     //Authentication routes
     Route::post('login', [AuthController::class, 'login']);
     Route::post('signup', [AuthController::class, 'signup']);
-    Route::apiResource('users', UserController::class)->only([
-        'index', 'show','update','destroy'
-    ]);
+    Route::put('uploadUserImage/{id}', [UserController::class, 'uploadUserImage']);
+});
+
+
+Route::group([
+    'middleware' => 'auth:api'
+], function () {
+
+    Route::get('user-profile', [AuthController::class, 'user']);
+    Route::put('profilUpdate/{id}', [UserController::class, 'update']);
 
     Route::apiResource('events', EventController::class)->only([
-        'update','destroy','store'
+        'update', 'destroy', 'store'
+    ]);
+
+    Route::apiResource('clubs', ClubController::class)->only([
+        'update', 'destroy', 'store'
     ]);
 
 
+    Route::apiResource('eventparticipants', EventParticipantController::class)->only([
+        'index', 'show', 'update', 'destroy', 'store'
+    ]);
 
+    Route::apiResource('inscriptions', InscriptionController::class)->only([
+        'index', 'destroy', 'store'
+    ]);
+
+    Route::apiResource('meetings', MeetingController::class)->only([
+        'index', 'update', 'destroy', 'store'
+    ]);
+
+    Route::apiResource('budgets', MeetingController::class)->only([
+        'index', 'update', 'destroy', 'store'
+    ]);
 });
 
+Route::apiResource('ClubMember', ClubMemberController::class)->only([
+    'index'
+]);
 
-    Route::group([
-        'middleware' => 'auth:api'
-    ], function() {
-
-        Route::apiResource('users', UserController::class)->only([
-            'index', 'show','update','destroy'
-        ]);
-
-        Route::apiResource('events', EventController::class)->only([
-            'update','destroy','store'
-        ]);
-
-        Route::apiResource('clubs', ClubController::class)->only([
-            'update','destroy','store'
-        ]);
-
-
-        Route::apiResource('eventparticipants', EventParticipantController::class)->only([
-            'index', 'show','update','destroy','store'
-        ]);
-
-        Route::apiResource('inscriptions', InscriptionController::class)->only([
-            'index','destroy','store'
-        ]);
-
-        Route::apiResource('meetings', MeetingController::class)->only([
-            'index','update','destroy','store'
-        ]);
-
-        Route::apiResource('budgets', MeetingController::class)->only([
-            'index','update','destroy','store'
-        ]);
-});
-
+Route::apiResource('Admin', AdminController::class)->only([
+    'index'
+]);
 
 /* Api routes
 to see the list of routes
 php artisan route:list
 */
 
-    //Clubs group
-    Route::group([
-        'prefix' => 'clubs'
-    ], function () {
+Route::apiResource('users', UserController::class)->only([
+    'index', 'show', 'update', 'destroy'
+]);
 
-        Route::get('getAllClubs', [ClubController::class, 'index']);
-        Route::get('randomlist', [ClubController::class, 'getRandomUsers']);
+//Clubs group
+Route::group([
+    'prefix' => 'clubs'
+], function () {
 
-    });
-
-
-    //event group
-    Route::group([
-        'prefix' => 'events'
-    ], function () {
-
-        Route::get('getAllEvents', [EventController::class, 'index']);
-        Route::get('getLast', [EventController::class, 'getTreeLast']);
-        Route::put('uploadEventImage/{id}', [EventController::class, 'uploadEventImage']);
-
-    });
-
-// QR code
-    Route::get("simple-qrcode", [SimpleQRcodeController::class,'generate']);
+    Route::get('getAllClubs', [ClubController::class, 'index']);
+    Route::get('randomlist', [ClubController::class, 'getRandomUsers']);
+});
 
 
+//event group
+Route::group([
+    'prefix' => 'events'
+], function () {
 
-    //users group
-    Route::group([
-        'prefix' => 'users'
-    ], function () {
-
-        Route::get('verify/{token}',[AuthController::class, 'verifyUser'])->name('verify');
-
-    });
+    Route::get('getAllEvents', [EventController::class, 'index']);
+    Route::get('getLast', [EventController::class, 'getTreeLast']);
+    Route::put('uploadEventImage/{id}', [EventController::class, 'uploadEventImage']);
+});
 
 
+Route::get("simple-qrcode", [SimpleQRcodeController::class, 'generate']);
+Route::get('users/verify/{token}', [AuthController::class, 'verifyUser'])->name('verify');
+Route::get('file/{filename}', [FileController::class, 'getFile']);
+
+
+
+//admin group
+Route::group([
+    'prefix' => 'admins'
+], function () {
+
+    Route::get('countEvents', [EventController::class, 'countEvents']);
+    Route::get('countUsers', [UserController::class, 'countUsers']);
+
+
+    Route::get('countClubs', [ClubController::class, 'countClubs']);
+
+    Route::get('eventBudget/{idevent}', [BudgetController::class, 'eventBudget']);
+    Route::get('budgetrest/{idevent}/{rest}', [BudgetController::class, 'budgetrest']);
+
+    Route::get('mostRecentEvent', [EventController::class, 'mostRecentEvent']);
+
+    Route::get('YearEvents', [EventController::class, 'YearEvents']);
+
+    Route::get('monthEvents/{id}', [EventController::class, 'monthEvents']);
+
+    Route::get('ClubTotalRegistration', [InscriptionController::class, 'ClubTotalRegistration']);
+
+    Route::get('TotalEventParticipant', [EventParticipantController::class, 'TotalEventParticipant']);
+    // Route::get('countUsers', [UserController::class, 'countUsers']);
+
+
+
+});

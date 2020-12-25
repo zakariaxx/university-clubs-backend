@@ -19,8 +19,17 @@ class CreatePedagogicalreferentTable extends Migration
             $table->string('faculty_or_department');
             $table->string('email_uir');
             $table->boolean( 'pedagogical_referent');
-                $table->timestamps();
+            $table->integer('id_user')->unique()->unsigned();
+            
+
+            $table->foreign('id_user')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
+
+
+
     }
 
     /**
