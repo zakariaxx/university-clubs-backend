@@ -23,7 +23,12 @@ class CreateClubMembersTable extends Migration
             $table->string('position_held');
             $table->string( 'center_of_interest',1000);
             $table->string('faculty');
-            $table->timestamps();
+            $table->integer('id_user')->unique()->unsigned();
+
+            $table->foreign('id_user')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

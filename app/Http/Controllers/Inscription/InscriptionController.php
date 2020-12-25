@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Inscription;
 use App\Http\Controllers\Controller;
 use App\Models\Inscription;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InscriptionController extends Controller
 {
@@ -60,6 +61,16 @@ class InscriptionController extends Controller
             return response()->json([
                 'message' => 'deleted!'
             ], 201);
+
+        }
+
+
+        public function ClubTotalRegistration()
+        {
+            return DB::table('inscriptions')
+                -> select('id_club',DB::raw("(COUNT(id)) as nbParticipants"))
+                ->Groupby(DB::raw('id_club'))
+                ->get();
 
         }
 

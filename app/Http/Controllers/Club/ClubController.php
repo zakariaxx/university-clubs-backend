@@ -110,4 +110,21 @@ $club = new Club(
         $club->save();
         return response()->json([$club,'message' => 'Image Uploaded Successfully']);
     }
+
+
+
+    public function countClubs()
+    {
+        $clubs= Club::all();
+        return $clubs->count();
+    }
+
+
+    public function ClubEvents()
+    {
+
+    }
+
+
+
 }

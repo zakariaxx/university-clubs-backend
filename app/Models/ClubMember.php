@@ -9,6 +9,12 @@ class ClubMember extends User
 {
     use HasFactory;
 
+    protected $table = 'club_members';
+
+
+
+
+
     protected $fillable=[
         'student_number',
         'hometown',

@@ -5,11 +5,14 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\File\FileController as FileFileController;
 use App\Http\Controllers\FileController;
+use App\Models\ClubMember;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+
 
     public function index()
     {
@@ -42,7 +45,17 @@ class UserController extends Controller
     public function show(int $id)
     {
 
-        $user = $user = User::find($id);
+        $user = User::find($id);
         return response()->json($user,201);
     }
+
+    public function countUsers()
+    {
+        $user = User::all();
+        return $user->count();
+    }
+
+
+
+
 }

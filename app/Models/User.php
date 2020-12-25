@@ -16,6 +16,18 @@ class User extends Authenticatable
     use HasApiTokens, Notifiable,HasFactory;
 
 
+    protected $table = 'users';
+
+    public function club_members()
+    {
+        return $this->hasOne(ClubMember::class, 'id_user', 'id');
+    }
+
+    public function admins()
+    {
+        return $this->hasOne(Admin::class, 'id_user', 'id');
+    }
+
     const VERIFIED_USER = '1';
     const UNVERIFIED_USER = '0';
 
