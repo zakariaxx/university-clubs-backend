@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
+use App\Models\Budget;
 use App\Models\Event;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -133,7 +135,31 @@ class EventController extends Controller
     }
 
 
+    public function countEventsOfThisMonth()
+    {
 
+        $events = DB::table('events')
+            ->where(DB::raw("extract(month from event_date)"),'=',Carbon::now()->month);
+        return response()->json($events->count(),201);
+    }
+
+
+    public function pendingEvents()
+    {
+        $events = DB::table('events')
+            ->where('validate','=',false)
+            ->get();
+
+        return response()->json($events,201);
+    }
+
+    public function eventValidation($name_event,$club_name)
+    {
+        $event= Event::where('name_event','=',$name_event)
+            ->where('club_name','=',$club_name)
+        ->update(['validate'=>true]);
+        return response()->json($event,201);
+    }
 
 
 }

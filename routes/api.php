@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Budget\BudgetController;
 use App\Http\Controllers\Club\ClubController;
+use App\Http\Controllers\ClubEvaluation\ClubEvaluationController;
 use App\Http\Controllers\ClubMember\ClubMemberController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\EventParticipantController;
@@ -40,6 +41,24 @@ Route::group([
 Route::group([
     'middleware' => 'auth:api'
 ], function () {
+
+    Route::apiResource('events', EventController::class)->only([
+        'update','destroy','store'
+    ]);
+
+
+
+});
+
+
+    Route::group([
+        'middleware' => 'auth:api'
+    ], function() {
+
+        Route::get('user-profile',[AuthController::class, 'user']);
+        Route::put('profilUpdate/{id}',[UserController::class, 'update']);
+
+
 
     Route::get('user-profile', [AuthController::class, 'user']);
     Route::put('profilUpdate/{id}', [UserController::class, 'update']);
@@ -139,6 +158,20 @@ Route::group([
     Route::get('TotalEventParticipant', [EventParticipantController::class, 'TotalEventParticipant']);
     // Route::get('countUsers', [UserController::class, 'countUsers']);
 
+    Route::post('clubScore', [ClubEvaluationController::class, 'clubScore']);
 
+    Route::get('listSortedClubs', [ClubEvaluationController::class, 'listSortedClubs']);
+
+    Route::get('listnonSortedClubs', [ClubEvaluationController::class, 'listnonSortedClubs']);
+
+    Route::get('countUsersOfThisMonth', [UserController::class, 'countUsersOfThisMonth']);
+
+    Route::get('countClubsOfThisYear', [ClubController::class, 'countClubsOfThisYear']);
+
+    Route::get('countEventsOfThisMonth', [EventController::class, 'countEventsOfThisMonth']);
+
+    Route::get('pendingEvents', [EventController::class, 'pendingEvents']);
+
+    Route::put('eventValidation/{event_name}/{club_name}', [EventController::class, 'eventValidation']);
 
 });

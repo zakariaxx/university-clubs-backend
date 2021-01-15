@@ -7,7 +7,9 @@ use App\Http\Controllers\File\FileController as FileFileController;
 use App\Http\Controllers\FileController;
 use App\Models\ClubMember;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -58,7 +60,14 @@ class UserController extends Controller
         return $user->count();
     }
 
+    public function countUsersOfThisMonth()
+    {
 
+        $user = DB::table('users')
+            ->where(DB::raw("extract(month from created_at)"),'=',Carbon::now()->month);
+
+        return response()->json($user->count(),201);
+    }
 
 
 }
