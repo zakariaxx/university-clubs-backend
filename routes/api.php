@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Budget\BudgetController;
 use App\Http\Controllers\Club\ClubController;
+use App\Http\Controllers\ClubEvaluation\ClubEvaluationController;
 use App\Http\Controllers\ClubMember\ClubMemberController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\EventParticipantController;
@@ -34,6 +35,12 @@ Route::group([
     Route::post('signup', [AuthController::class, 'signup']);
     Route::put('uploadUserImage/{id}', [UserController::class, 'uploadUserImage']);
 
+    Route::apiResource('events', EventController::class)->only([
+        'update','destroy','store'
+    ]);
+
+
+
 });
 
 
@@ -44,9 +51,7 @@ Route::group([
         Route::get('user-profile',[AuthController::class, 'user']);
         Route::put('profilUpdate/{id}',[UserController::class, 'update']);
 
-        Route::apiResource('events', EventController::class)->only([
-            'update','destroy','store'
-        ]);
+
 
         Route::apiResource('clubs', ClubController::class)->only([
             'update','destroy','store'
@@ -140,6 +145,20 @@ Route::group([
     Route::get('TotalEventParticipant',[EventParticipantController::class,'TotalEventParticipant']);
    // Route::get('countUsers', [UserController::class, 'countUsers']);
 
+    Route::post('clubScore', [ClubEvaluationController::class, 'clubScore']);
 
+    Route::get('listSortedClubs', [ClubEvaluationController::class, 'listSortedClubs']);
+
+    Route::get('listnonSortedClubs', [ClubEvaluationController::class, 'listnonSortedClubs']);
+
+    Route::get('countUsersOfThisMonth', [UserController::class, 'countUsersOfThisMonth']);
+
+    Route::get('countClubsOfThisYear', [ClubController::class, 'countClubsOfThisYear']);
+
+    Route::get('countEventsOfThisMonth', [EventController::class, 'countEventsOfThisMonth']);
+
+    Route::get('pendingEvents', [EventController::class, 'pendingEvents']);
+
+    Route::put('eventValidation/{event_name}/{club_name}', [EventController::class, 'eventValidation']);
 
 });

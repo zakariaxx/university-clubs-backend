@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Club;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\file\FileController;
 use App\Models\Club;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClubController extends Controller
 {
@@ -120,9 +122,12 @@ $club = new Club(
     }
 
 
-    public function ClubEvents()
+    public function countClubsOfThisYear()
     {
 
+        $club = DB::table('clubs')
+            ->where(DB::raw("extract(year from creation_date)"),'=',Carbon::now()->year);
+        return response()->json($club->count(),201);
     }
 
 
