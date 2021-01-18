@@ -12,8 +12,8 @@ class FileController extends Controller
 
     public function uploadimage(Request $request)
     {
-        if ($request->hasfile('photo')) {
-            $file = $request->file('photo');
+        if ($request->hasfile('file')) {
+            $file = $request->file('file');
             $extension = $file->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
             $file->StoreAs('public/', $filename);

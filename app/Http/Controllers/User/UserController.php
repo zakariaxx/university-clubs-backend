@@ -35,14 +35,14 @@ class UserController extends Controller
 
     function uploadUserImage(Request $request, $id)
     {
-        /* $filename=(new FileFileController)->uploadimage($request);
+        $filename=(new FileFileController)->uploadimage($request);
         $user= User::find($id);
         $user-> photo = $filename;
         $user->save();
-        return response()->json([$user,'message' => 'Image Uploaded Successfully']); */
-        $path = $request->file('avatar')->store('avatars');
+        return response()->json(['message' => 'Image Uploaded Successfully']);
+      /*   $path = $request->file('file')->store('avatars');
 
-        return $path;
+        return $path; */
 
     }
 

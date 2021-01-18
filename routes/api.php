@@ -34,7 +34,7 @@ Route::group([
     //Authentication routes
     Route::post('login', [AuthController::class, 'login']);
     Route::post('signup', [AuthController::class, 'signup']);
-    Route::put('uploadUserImage/{id}', [UserController::class, 'uploadUserImage']);
+    Route::post('uploadUserImage/{id}', [UserController::class, 'uploadUserImage']);
 });
 
 
