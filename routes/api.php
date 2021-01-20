@@ -30,7 +30,9 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'prefix' => 'auth'
 ], function () {
-
+    Route::apiResource('clubs', ClubController::class)->only([
+        'update', 'destroy', 'store'
+    ]);
     //Authentication routes
     Route::post('login', [AuthController::class, 'login']);
     Route::post('signup', [AuthController::class, 'signup']);
@@ -67,9 +69,7 @@ Route::group([
         'update', 'destroy', 'store'
     ]);
 
-    Route::apiResource('clubs', ClubController::class)->only([
-        'update', 'destroy', 'store'
-    ]);
+
 
 
     Route::apiResource('eventparticipants', EventParticipantController::class)->only([
@@ -121,6 +121,7 @@ Route::group([
     'prefix' => 'events'
 ], function () {
 
+    Route::get('getCurrentEvent', [EventController::class, 'getCurrentEvent']);
     Route::get('getAllEvents', [EventController::class, 'index']);
     Route::get('getLast', [EventController::class, 'getTreeLast']);
     Route::put('uploadEventImage/{id}', [EventController::class, 'uploadEventImage']);
