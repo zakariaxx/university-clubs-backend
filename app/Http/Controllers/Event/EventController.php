@@ -162,4 +162,12 @@ class EventController extends Controller
     }
 
 
+    public function getCurrentEvent()
+    {
+        echo "test";
+        $event= Event::where(DB::raw('extract(year from event_date)'),'<',(Carbon::now()->year));
+        return response()->json($event,201);
+    }
+
+
 }

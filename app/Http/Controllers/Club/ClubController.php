@@ -62,7 +62,7 @@ $club = new Club(
 
 
         $filename=(new FileController)->uploadImage($request);
-        $club-> logo = $filename;
+        $club-> club_logo = $filename;
         $club->save();
         return response()->json($club,200);
     }

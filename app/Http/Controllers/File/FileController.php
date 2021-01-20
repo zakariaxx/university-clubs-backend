@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
-
     public function uploadimage(Request $request)
     {
         if ($request->hasfile('file')) {
@@ -23,8 +22,9 @@ class FileController extends Controller
         } else {
             return response()->json(['message' => 'Select image first.']);
         }
-
     }
+
+
 
     public function getFile(String $filename)
     {
