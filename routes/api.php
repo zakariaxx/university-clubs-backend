@@ -128,6 +128,7 @@ Route::group([
 
 
 Route::get("simple-qrcode", [SimpleQRcodeController::class, 'generate']);
+Route::get("userClubs/{id}", [InscriptionController::class, 'getUserClubs']);
 Route::get('users/verify/{token}', [AuthController::class, 'verifyUser'])->name('verify');
 Route::get('file/{filename}', [FileController::class, 'getFile']);
 

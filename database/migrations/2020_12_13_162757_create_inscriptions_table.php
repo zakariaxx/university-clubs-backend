@@ -21,6 +21,7 @@ class CreateInscriptionsTable extends Migration
             $table -> date('inscription_date');
             $table -> string('post');
             $table -> boolean('club_office_member')->default(0);
+            $table -> boolean('validate')->default(0);
             $table->timestamps();
 
            $table->foreign('id_user')

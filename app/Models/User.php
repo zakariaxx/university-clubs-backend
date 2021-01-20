@@ -55,6 +55,8 @@ class User extends Authenticatable
         'activate',
         'civility',
         'admin',
+        'club_office_member',
+        'id_club'
 
     ];
 

@@ -19,6 +19,7 @@ class Inscription extends Model
         'post',
         'inscription_date',
         'club_office_member',
+        'validate'
     ];
 
     public function isOfficeMember(){

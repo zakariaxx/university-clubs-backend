@@ -27,7 +27,7 @@ class EventFactory extends Factory
         return [
             'theme' => $this->faker->word(),
             'name_event' => $this->faker->word,
-            'description' => $this->faker->paragraph(1),
+            'description' => $this->faker->paragraph(2),
             'event_date' => now(),
             'location' => $this->faker->text,
             'id_club' => $club->id,

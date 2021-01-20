@@ -74,4 +74,26 @@ class InscriptionController extends Controller
 
         }
 
+        public function getUserClubs($id_user){
+            $inscription =  DB::table('inscriptions')->where('id_user', 100)->get();
+
+            $userClubs = DB::table('inscriptions')
+                            ->join('users','inscriptions.id_user', '=', 'users.id')
+                            ->join('clubs', 'inscriptions.id_club', '=', 'clubs.id')
+                            ->select('inscriptions.*','clubs.id', 'clubs.club_name')
+                            ->where('inscriptions.id_user', '=', $id_user)
+                            ->get();
+
+            return response()->json($userClubs, 201);
+
+        }
+
+    /*
+    join request example
+        $users = DB::table('users')
+        ->join('contacts', 'users.id', '=', 'contacts.user_id')
+        ->join('orders', 'users.id', '=', 'orders.user_id')
+        ->select('users.*', 'contacts.phone', 'orders.price')
+        ->get(); */
+
 }

@@ -25,7 +25,7 @@ class ClubFactory extends Factory
         return [
             'club_name' => $this->faker->unique()->Word,
             'mission_objectives' => $this->faker->paragraph(1),
-            'description' => $this->faker->paragraph(1),
+            'description' => $this->faker->paragraph(2),
             'email' => $this->faker->email,
             'creation_date' => now(),
             'club_type' => $this->faker->text,
