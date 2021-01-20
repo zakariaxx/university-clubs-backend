@@ -28,14 +28,14 @@ class User extends Authenticatable
         return $this->hasOne(Admin::class, 'id_user', 'id');
     }
 
-    const VERIFIED_USER = '1';
-    const UNVERIFIED_USER = '0';
+    const VERIFIED_USER = true;
+    const UNVERIFIED_USER = false;
 
-    const ADMIN_USER = 'true';
-    const REGULAR_USER = 'false';
+    const ADMIN_USER = true;
+    const REGULAR_USER = false;
 
-    const ACTIVATE_USER = 'true';
-    const DESACTIVATE_USER = 'false';
+    const ACTIVATE_USER = true;
+    const DESACTIVATE_USER = false;
 
     /**
      * The attributes that are mass assignable.
