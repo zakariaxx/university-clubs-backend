@@ -36,7 +36,7 @@ class AuthController extends Controller
              'civility'=>'string',
              'first_name'=>'required|string',
              'last_name'=>'required|string',
-             'admin'=>'string',
+             'admin'=>'boolean',
 
         ]);
         $user = new User([

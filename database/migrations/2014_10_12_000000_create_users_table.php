@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('verification_token')->nullable();
             $table->string('civility');
             $table->boolean('activate')->default(User::DESACTIVATE_USER);
-            $table->string('admin')->default(User::REGULAR_USER);
+            $table->boolean('admin')->default(User::REGULAR_USER);
             $table->string('photo')->nullable();
             $table->boolean('club_office_member')->default(0);
             $table->integer('id_club')->nullable();
