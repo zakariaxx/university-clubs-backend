@@ -6,7 +6,7 @@
 <body>
     <h1>{{ $title }}</h1>
 
-    <img style="margin-left:40%;margin-top:5%;margin-bottom:10%;" src="data:image/png;base64, {{ $qrCode }} "> <br>
+    <img style="margin-left:40%;margin-top:5%;margin-bottom:10%;" src="data:image/{{ $qrCode }}.svg"> <br>
     <p style="margin-top:5%;">{{ $body }}</p>
 
     <table style="width:100%;margin-top:10%;" border="2px">

@@ -31,7 +31,8 @@ class EventFactory extends Factory
             'event_date' => now(),
             'location' => $this->faker->text,
             'id_club' => $club->id,
-            'club_name' => $club->club_name
+            'club_name' => $club->club_name,
+            'picture'=> $this->faker->randomElement(['1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg'])
         ];
     }
 }

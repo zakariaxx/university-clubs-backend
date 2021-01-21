@@ -13,7 +13,11 @@ class EventParticipant extends Model
         '',
         'event_id',
         'participant_id',
-       'invitation',
-       'participate',
+        'invitation',
+        'participate',
+        'first_name',
+        'last_name',
+        'email',
+        'phone_number'
     ];
 }

@@ -29,6 +29,7 @@ class ClubFactory extends Factory
             'email' => $this->faker->email,
             'creation_date' => now(),
             'club_type' => $this->faker->text,
+            'club_logo'=>$this->faker->randomElement(['c1.png','c4.png','c5.png','c3.png','c2.png'])
         ];
     }
 }

@@ -17,8 +17,13 @@ class CreateEventParticipantsTable extends Migration
             $table->increments("id");
             $table->integer('event_id')->unsigned();
             $table->integer('participant_id')->unsigned();
-            $table->string('invitation')->nullable();;
+            $table->string('invitation')->nullable();
             $table->boolean('participate')->default(false);
+            $table->string('first_name')->nullable();;
+            $table->string('last_name')->nullable();;
+            $table->string('email')->nullable();;
+            $table->string('phone_number')->nullable();;
+            $table->string('participation_code')->nullable();
 
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->foreign('participant_id')->references('id')->on('users')->onDelete('cascade');
