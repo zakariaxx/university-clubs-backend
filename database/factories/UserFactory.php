@@ -39,11 +39,11 @@ class UserFactory extends Factory
         // ];
 
         return [
-        'first_name' =>'Hippolyte',
-        'last_name' => 'EZIAN',
+        'first_name' =>'Admin',
+        'last_name' => 'Admin',
         'phone_number' => $this->faker->phoneNumber,
-        'user_name' => 'Polarus',
-        'email' => 'ablam.ezian@uir.ac.ma',
+        'user_name' => 'admin',
+        'email' => 'admin@uir.ac.ma',
         'password' => $password = bcrypt("pass"),
         'remember_token' => Str::random(10),
         'verified' => true,
